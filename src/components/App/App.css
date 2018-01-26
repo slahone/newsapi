@@ -1,0 +1,29 @@
+body {
+  background-image: url("/images/world.jpg");
+}
+
+.main {
+  background-image: url("/images/world.jpg");
+  width: 100%;
+  display: block;
+  margin: auto;
+}
+
+.fetchnews {
+  font-family: "Tahoma" "sans serif";
+  font-size: 32px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.world {
+  background-color: #7CDE4F;
+}
+
+.us {
+  background-color: #D7C5B3;
+}
+
+.india {
+  background-color: #B3DFC2;
+}

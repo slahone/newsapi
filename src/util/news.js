@@ -1,9 +1,18 @@
+import apiKey from './apikey';
 
-const apiKey = '548a3c80d9304e128b794e3614a49913';
+// The 2-letter ISO 3166-1 code of the country you want to get headlines for. Possible options:
+// ae ar at au be bg br ca ch cn co cu cz de eg fr gb gr hk hu
+// id ie il in it jp kr lt lv ma mx my ng nl no nz ph pl pt ro
+// rs ru sa se sg si sk th tr tw ua us ve za .
+// category: entertainment general health science sports technology
+
 
 let newsFeed = {
-  getHeadLines() {
-    const url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${apiKey}`;
+  getHeadLines (zone, cat) {
+    //console.log ((zone===''?'World':zone) + ' ' + cat);
+    const country = zone==='' ? '' : `&country=${zone}`;
+    const url = `https://newsapi.org/v2/top-headlines?pageSize=81&category=${cat}&apiKey=${apiKey}${country}`;
+    //console.log (url);
     return fetch (url).then (response => {  // this return statement returns a promise.
         if (response.ok) {
           return response.json();

@@ -1,0 +1,12 @@
+.newsItem {
+  display: grid;
+  border: 2px solid rgba(0,0,0, 0.03);
+  padding: 5px;
+  text-align: center;
+  background-color: #DF7D23;
+  border-radius: 5px;
+}
+
+.linkImg {
+  width: 200px;
+}

@@ -5,14 +5,14 @@ import NewsItem from '../NewsItem/NewsItem';
 class NewsItems extends React.Component {
   render() {
     return (
-      <ul>
-        {this.props.articles.map (item =>
-            <NewsItem item={item} />
-       )}
-      </ul>
+        <div className="container">
+          {this.props.articles.map (item =>
+              <NewsItem key={item.id} item={item} />
+          )}
+        </div>
     )
   }
 
 }
 
-export default NewsItems
+export default NewsItems;

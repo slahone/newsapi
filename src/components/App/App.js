@@ -1,22 +1,29 @@
 import React from 'react';
 import './App.css';
 import newsFeed from '../../util/news';
-import NewsItems from '../NewsItems/NewsItems';
+import TopNews from '../topnews/topnews';
 
 class App extends React.Component {
   constructor (props) {
     super (props);
     this.state = {
       term: '',
-      articles: []
+      src: '',
+      type: 'general',
+      articles: [],
     }
     this.onGetNews = this.onGetNews.bind (this);
+    this.setCountry = this.setCountry.bind (this);
+    this.setCategory = this.setCategory.bind (this);
   }
 
-  onGetNews() {
-    newsFeed.getHeadLines()
+  componentDidMount() {
+    this.onGetNews(this.state.src, this.state.type);
+  }
+
+  onGetNews(src, type) {
+    newsFeed.getHeadLines(src, type)
       .then(response => {
-        console.log ('inApp', response);
         this.setState ({
           articles: response
         })
@@ -24,14 +31,22 @@ class App extends React.Component {
     )
   }
 
+  setCountry (country) {
+    this.onGetNews (country, this.state.type);
+    this.setState ({
+      src: country
+    })
+  }
+
+  setCategory (category) {
+    this.onGetNews (this.state.src, category);
+    this.setState ({
+      type: category
+    })
+  }
+
   render () {
-    console.log ('State', this.state);
-    return ( this.state.articles ?
-      <div>
-        <button onClick={this.onGetNews}>Get Headlines</button>
-        <NewsItems articles={this.state.articles} />
-      </div>
-      :
+    return ( this.state.articles ? <TopNews articles={this.state.articles} onClickBase={this.setCountry} onClickCategory={this.setCategory} /> :
       <div>
         <h1>Error encountered</h1>
       </div>
