@@ -1,0 +1,45 @@
+.header {
+  background-color: #DFDFDF;
+}
+
+.fetchnews {
+  font-family: "Tahoma" "sans serif";
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0 10px 0 10px;
+  color: #3F7F30;
+}
+
+.fetchnews1 {
+  font-family: "Tahoma" "sans serif";
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0 10px 0 10px;
+  color: #3F7F30;
+}
+
+.fetchlink {
+  cursor: pointer;
+}
+
+.fetchnews:hover {
+  color: red;
+}
+
+.us {
+  color: #3F7F30;
+}
+
+.selectX {
+  font-size: 24px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+}
+
+#explain {
+  background-color: grey;
+  color: white;
+  padding-left: 10px;
+  font-family: 'Arial' serif;
+  font-size: 15px;
+}

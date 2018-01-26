@@ -1,7 +1,9 @@
 import React from 'react';
 import './App.css';
 import newsFeed from '../../util/news';
-import TopNews from '../topnews/topnews';
+import NewsItems from '../NewsItems/NewsItems';
+import SearchBar from '../searchbar/searchbar';
+import ErrorHandler from '../ErrorHandler/ErrorHandler';
 
 class App extends React.Component {
   constructor (props) {
@@ -12,16 +14,16 @@ class App extends React.Component {
       type: 'general',
       articles: [],
     }
-    this.onGetNews = this.onGetNews.bind (this);
+    this.onGetNewsHeadLines = this.onGetNewsHeadLines.bind (this);
     this.setCountry = this.setCountry.bind (this);
     this.setCategory = this.setCategory.bind (this);
   }
 
   componentDidMount() {
-    this.onGetNews(this.state.src, this.state.type);
+    this.onGetNewsHeadLines(this.state.src, this.state.type);
   }
 
-  onGetNews(src, type) {
+  onGetNewsHeadLines(src, type) {
     newsFeed.getHeadLines(src, type)
       .then(response => {
         this.setState ({
@@ -32,25 +34,39 @@ class App extends React.Component {
   }
 
   setCountry (country) {
-    this.onGetNews (country, this.state.type);
+    this.onGetNewsHeadLines (country, this.state.type);
     this.setState ({
       src: country
     })
   }
 
   setCategory (category) {
-    this.onGetNews (this.state.src, category);
+    this.onGetNewsHeadLines (this.state.src, category);
     this.setState ({
       type: category
     })
   }
 
+  setQuery (query) {
+
+  }
+
   render () {
-    return ( this.state.articles ? <TopNews articles={this.state.articles} onClickBase={this.setCountry} onClickCategory={this.setCategory} /> :
-      <div>
-        <h1>Error encountered</h1>
-      </div>
-    );
+    if (this.state.articles.length>0) {
+      return (
+        <div>
+          <SearchBar onClickBase={this.setCountry} onClickCategory={this.setCategory} />
+          <NewsItems articles={this.state.articles} />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <SearchBar onClickBase={this.setCountry} onClickCategory={this.setCategory} />
+          <ErrorHandler />
+        </div>
+      );
+    }
   }
 }
 

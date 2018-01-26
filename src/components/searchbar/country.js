@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Countries = [
   {value: '', label: 'World News'},
   {value: 'au', label: 'Australia'},
