@@ -15,6 +15,7 @@ class App extends React.Component {
       articles: [],
     }
     this.onGetNewsHeadLines = this.onGetNewsHeadLines.bind (this);
+    this.onSearchNewsHeadlines = this.onSearchNewsHeadlines.bind (this);
     this.setCountry = this.setCountry.bind (this);
     this.setCategory = this.setCategory.bind (this);
   }
@@ -32,6 +33,17 @@ class App extends React.Component {
       }
     )
   }
+
+  onSearchNewsHeadlines(term) {
+    newsFeed.queryHeadLines (term, this.state.src, this.state.type)
+    .then(response => {
+      this.setState ({
+        articles: response
+      })
+    })
+  }
+
+
 
   setCountry (country) {
     this.onGetNewsHeadLines (country, this.state.type);
@@ -52,17 +64,17 @@ class App extends React.Component {
   }
 
   render () {
-    if (this.state.articles.length>0) {
+    if (this.state.articles) {
       return (
         <div>
-          <SearchBar onClickBase={this.setCountry} onClickCategory={this.setCategory} />
+          <SearchBar onClickBase={this.setCountry} onClickCategory={this.setCategory}  onSearchNews={this.onSearchNewsHeadlines}/>
           <NewsItems articles={this.state.articles} />
         </div>
       );
     } else {
       return (
         <div>
-          <SearchBar onClickBase={this.setCountry} onClickCategory={this.setCategory} />
+          <SearchBar onClickBase={this.setCountry} onClickCategory={this.setCategory} onSearchNews={this.onSearchNewsHeadlines}/>
           <ErrorHandler />
         </div>
       );

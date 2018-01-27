@@ -17,11 +17,12 @@ let newsFeed = {
         if (response.ok) {
           return response.json();
         }
-        throw new Error ('Unable to retrieve new headlines');
+        console.log ('Unable to retrieve new headlines');
+        return null;
       },
       networkError => {
         console.log ("Network Error");
-        return [];
+        return null;
       }
     ).then (jsonResponse => {
       const news = jsonResponse.articles.map ((item, index) => {
@@ -39,7 +40,43 @@ let newsFeed = {
       })
       return news;
     })
+  },
+
+  queryHeadLines (term, zone, cat) {
+    //console.log ((zone===''?'World':zone) + ' ' + cat);
+    //const country = zone==='' ? '' : `&country=${zone}`;
+    const url = `https://newsapi.org/v2/everything?pageSize=81&q=${term}&apiKey=${apiKey}`;
+    console.log (url);
+    return fetch (url).then (response => {  // this return statement returns a promise.
+        if (response.ok) {
+          return response.json();
+        }
+        console.log ('Unable to retrieve new headlines');
+        return [];
+      },
+      networkError => {
+        console.log ("Network Error");
+        return [];
+      }
+    ).then (jsonResponse => {
+      console.log (jsonResponse);
+      const news = jsonResponse.articles.map ((item, index) => {
+        return {
+          id: index,
+          source: item.source.id,
+          name: item.source.name,
+          author: item.author,
+          title: item.title,
+          description: item.description,
+          uri: item.url,
+          image: item.urlToImage,
+          publishedAt: item.publishedAt
+        }
+      })
+      return news;
+    })
   }
+
 }
 
 export default newsFeed;
